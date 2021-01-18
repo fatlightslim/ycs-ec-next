@@ -5,10 +5,10 @@ class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const { req, res } = ctx
 
-    // await basicAuthMiddleware(req, res, {
-    //   includePaths: ["/", '/setting'],
-    //   excludePaths: ["/api"],
-    // })
+    await basicAuthMiddleware(req, res, {
+      includePaths: ["/", '/setting'],
+      excludePaths: ["/api"],
+    })
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
