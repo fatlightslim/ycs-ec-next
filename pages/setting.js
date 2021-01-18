@@ -81,17 +81,17 @@ export default function Setting({data}) {
 //   });
 // }
 
-export async function getStaticProps() {
-  const res = await fetch(`http://localhost:3000/api/depts`)
-  const depts = await res.json()
+// export async function getStaticProps() {
+//   const res = await fetch(`http://localhost:3000/api/depts`)
+//   const depts = await res.json()
 
-  if (!depts) {
-    return {
-      notFound: true,
-    }
-  }
+//   if (!depts) {
+//     return {
+//       notFound: true,
+//     }
+//   }
 
-  return {
-    props: { data: depts }, // will be passed to the page component as props
-  }
-}
+//   return {
+//     props: { data: depts }, // will be passed to the page component as props
+//   }
+// }
