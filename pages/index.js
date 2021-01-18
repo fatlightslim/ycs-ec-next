@@ -145,11 +145,12 @@ export default function Home({ depts }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+// export async function getStaticProps() {
   // const { data, error } = useSWR(`/api/depts`)
   // if (error) return <div>failed to load</div>
   // if (!data) return <div>loading...</div>
-  const res = await fetch(`http://localhost:3000/api/depts`)
+  const res = await fetch(`/api/depts`)
   const data = await res.json()
   // console.log(res.data);
 
