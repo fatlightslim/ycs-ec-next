@@ -129,7 +129,11 @@ export default function Home({ depts }) {
             <>
               <Stats {...props} />
               {duplicate.length > 0 && <Duplicate {...props} />}
-              {printableData.length > 0 && loading ? "Loading..." : <Printable {...props} />}
+              {printableData.length > 0 && loading ? (
+                "Loading..."
+              ) : (
+                <Printable {...props} />
+              )}
               {duplicate.length === 0 && printableData.length === 0 && (
                 <>
                   <StatusButton {...props} />
@@ -145,12 +149,12 @@ export default function Home({ depts }) {
   )
 }
 
-export async function getServerSideProps(context) {
-// export async function getStaticProps() {
+// export async function getServerSideProps(context) {
+export async function getStaticProps() {
   // const { data, error } = useSWR(`/api/depts`)
   // if (error) return <div>failed to load</div>
   // if (!data) return <div>loading...</div>
-  const res = await fetch(`/api/depts`)
+  const res = await fetch(`http://localhost:3000/api/depts`)
   const data = await res.json()
   // console.log(res.data);
 
@@ -162,7 +166,57 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      depts: JSON.parse(JSON.stringify(data)),
+      // depts: JSON.parse(JSON.stringify(data)),
+      depts: [
+        {
+          address1: "八千代市高津678-2",
+          address2: "グリーンハイランドⅠ",
+          createdAt: "2020-09-24T17:13:15.174Z",
+          customers: "takatsu",
+          fax: "047-459-3803",
+          fullName: "読売センターゆりのき高津",
+          name: "新聞",
+          old_id: "8LKNsHpFP5uKQTxk0nQB",
+          person: "所長 館坂 民和",
+          status: "active",
+          tel: "047-459-0084",
+          updatedAt: "2021-01-17T07:06:19.999Z",
+          zip: "〒276-0036",
+          _id: "6003e1ec724e6b1fcf5fb3f4",
+        },
+        {
+          address1: "千葉県東金市堀上",
+          address2: "５６−４",
+          createdAt: "2020-11-01T08:14:28.003Z",
+          customers: "togane",
+          fax: "0475-52-4766",
+          fullName: "読売センター東金中央",
+          name: "東金",
+          old_id: "WY11IJ6B58TwaguXdMXK",
+          person: "所長 館坂 民和",
+          status: "active",
+          tel: "0475-52-2240",
+          updatedAt: "2021-01-17T07:06:19.999Z",
+          zip: "〒283-0063",
+          _id: "6003e1ec724e6b1fcf5fb3f5",
+        },
+        {
+          address1: "八千代市高津678-2",
+          address2: "グリーンハイランドⅠ",
+          createdAt: "1970-01-01T00:00:00.000Z",
+          customers: "takatsu",
+          fax: "047-459-3803",
+          fullName: "読売センターゆりのき高津",
+          name: "食品",
+          old_id: "fNhboDabBd0pw0tlO9n8",
+          person: "所長 館坂 民和",
+          status: "active",
+          tel: "047-459-0084",
+          updatedAt: "2021-01-17T07:06:19.999Z",
+          zip: "〒276-0036",
+          _id: "6003e1ec724e6b1fcf5fb3f6",
+        },
+      ],
     },
   }
 }
