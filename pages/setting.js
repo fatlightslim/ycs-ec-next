@@ -11,6 +11,15 @@ import DeptForm from "../components/DeptForm"
 import Aggregate from "../components/Aggregate"
 import Archived from "../components/Archived"
 
+import initializeBasicAuth from 'nextjs-basic-auth'
+const users = [
+  { user: process.env.USER, password: process.env.PASSWORD },
+    { user: 'ycs', password: '1q2w3e4r' },
+]
+const basicAuthCheck = initializeBasicAuth({
+  users: users
+})
+
 const Map = {
   // content: Content,
   // customers: Customers,
@@ -81,18 +90,28 @@ export default function Setting({data}) {
 //   });
 // }
 
-export async function getStaticProps() {
-  const url = 'https://ycs-ec-next.vercel.app/api/depts'
-  const res = await fetch(url)
-  const depts = await res.json()
 
-  if (!depts) {
+
+export async function getServerSideProps(ctx) {
+  const {req, res} = ctx
+
+  const url = "https://ycs-ec-next.vercel.app/api/depts"
+  const r = await fetch(url)
+  const d = await r.json()
+
+  if (!d) {
     return {
       notFound: true,
     }
   }
 
+  await basicAuthCheck(req, res)
+
+
   return {
-    props: { data: depts }, // will be passed to the page component as props
+    props: {
+      data: JSON.parse(JSON.stringify(d)),
+    }
   }
+
 }
