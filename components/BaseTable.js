@@ -1,6 +1,6 @@
 import SelectDept from "./SelectDept"
 
-const blacklist = ["status", "_id", "old_id", "info"]
+const blacklist = ["status", "_id", "old_id", "info", "dept_id", "createdAt", 'updatedAt' ]
 
 export default function BaseTable(props) {
   const { result, currentDept } = props
