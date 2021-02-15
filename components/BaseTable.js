@@ -1,14 +1,16 @@
 import SelectDept from "./SelectDept"
 
+const blacklist = ["status", "_id", "old_id", "info"]
+
 export default function BaseTable(props) {
   const { result, currentDept } = props
 
   const Tr = ({ v }) => {
     return currentDept._id === v.dept_id ? (
       <tr>
-        {Object.keys(v).map((x) => {
-          return (
-            <td key={v[x]} className="px-6 py-4 whitespace-nowrap">
+        {Object.keys(v).map((x, i) => {
+          return blacklist.includes(x) ? null : (
+            <td key={i} className="px-6 py-4 whitespace-nowrap">
               <div className="ml-4">
                 <div className="text-sm  text-gray-900">{v[x]}</div>
               </div>
@@ -29,18 +31,23 @@ export default function BaseTable(props) {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    {result.length > 0 && Object.keys(result[0]).map((v) => (
-                      <th
-                        key={v}
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        children={v}
-                      />
-                    ))}
+                    {result.length > 0 &&
+                      Object.keys(result[0]).map((v) => {
+                        console.log(v)
+                        return blacklist.includes(v) ? null : (
+                          <th
+                            key={v}
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                            children={labels[v]}
+                          />
+                        )
+                      })}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {result.map((v) => {
+                    // console.log(v)
                     return <Tr key={v._id} v={v} />
                   })}
                 </tbody>
@@ -51,4 +58,15 @@ export default function BaseTable(props) {
       </div>
     </div>
   )
+}
+
+const labels = {
+  qty: "数量",
+  sales: "価格",
+  dept_id: "部門",
+  createdAt: "作成日",
+  updatedAt: "更新日",
+  count: "販売数",
+  name: "名前",
+  price: "価格",
 }
