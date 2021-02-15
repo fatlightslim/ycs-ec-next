@@ -91,7 +91,7 @@ class ComponentToPrint extends Component {
     return (
       <ul className="grid grid-cols-2 gap-0">
         {data.map((v, i) => (
-          <MergeReceipt key={v._id} {...this.props} v={v} />
+          <MergeReceipt key={i} {...this.props} v={v} />
         ))}
       </ul>
     )

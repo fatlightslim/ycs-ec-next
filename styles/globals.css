@@ -14,3 +14,25 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.btn-blue {
+  @apply inline-flex items-center px-2.5 py-1.5 border border-transparent  font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+}
+
+.price {
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #ececec;
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    color-stop(0.5, #f9f9f9),
+    color-stop(0.5, transparent),
+    to(transparent)
+  );
+  -webkit-background-size: 5px;
+}
