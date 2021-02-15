@@ -94,7 +94,7 @@ export default function Stats({
                 販売数
               </dt>
               <dd className="mt-1 text-3xl font-semibold text-gray-900">
-                {formatter.format(currentProduct.sales)}
+                {parseInt(currentProduct.sales)}
               </dd>
             </div>
           </div>
