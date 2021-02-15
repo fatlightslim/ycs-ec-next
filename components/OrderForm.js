@@ -211,6 +211,11 @@ export default function OrderForm({
     </div>
   )
 
+  const method = {
+    "POST": "注文を登録",
+    "PATCH": "注文を編集"
+  }
+
   return (
     <div className="mx-auto pb-8 ">
       <form
@@ -228,7 +233,7 @@ export default function OrderForm({
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5  px-4 sm:px-6 lg:px-8">
           <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5">
             <h3 className="sticky top-6 text-lg leading-6 font-medium text-gray-900">
-              {form.method}
+              {method[form.method]}
             </h3>
             <div className="space-y-6 sm:space-y-5">
               {labels.map((v, i) => {
