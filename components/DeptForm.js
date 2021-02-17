@@ -28,7 +28,10 @@ export default function DeptForm(props) {
     { en: "_id", type: "hidden", value: currentDept._id },
   ]
 
-  const addNewDept = () => {}
+  const addNewDept = () => {
+
+    setForm(null)
+  }
 
   const onPost = (data) => {
     const copied = [...products]
@@ -114,7 +117,7 @@ export default function DeptForm(props) {
         >
           削除
         </a>
-        <button
+        {/* <button
           // type="submit"
           onClick={(e) => {
             e.preventDefault()
@@ -123,7 +126,7 @@ export default function DeptForm(props) {
           className="disabled:opacity-50 ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           追加
-        </button>
+        </button> */}
       </div>
     </div>
   )
