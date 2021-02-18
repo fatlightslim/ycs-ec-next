@@ -132,7 +132,7 @@ function convertData(data, region) {
 
     Object.keys(item).forEach((v) => {
       if (item[v]) {
-        var str = encoding.convert(str2Array(item[v]), "unicode", "sjis")
+        var str = encoding.convert(str2Array(item[v]), "UNICODE", "SJIS")
         item[v] = encoding.codeToString(str)
       }
     })
