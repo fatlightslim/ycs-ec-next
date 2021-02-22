@@ -100,7 +100,7 @@ fs.readFile(`${__dirname}/json/${collection}.json`, "utf-8", (err, data) => {
             sales: salesToInteger,
             dept_id: filtered.length > 0 ? filtered[0]._id.toString() : "",
             createdAt: new Date(timestamp),
-            updatedAt: new Date(updated),
+            updatedAt: updated ? new Date(updated) : new Date(),
             old_id,
             ...rest,
           }

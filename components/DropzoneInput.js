@@ -26,6 +26,7 @@ export default function DropzoneInput(props) {
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   const saveCustomers = () => {
+    console.log(result);
     axios.post("/api/customers", result).then((response) => {
       alert("更新が完了しました")
     })
@@ -132,10 +133,15 @@ function convertData(data, region) {
 
     Object.keys(item).forEach((v) => {
       if (item[v]) {
-        var str = encoding.convert(str2Array(item[v]), "unicode", "sjis")
+        const a = encoding.detect(str2Array(item[v]))
+        console.log(a);
+        var str = encoding.convert(str2Array(item[v]), {
+          from: "SJIS", to: 'UTF8'
+        })
         item[v] = encoding.codeToString(str)
       }
     })
+    console.log(item);
 
     array.push({ ...item, ...itemsNotJapanese(v), region })
   })
