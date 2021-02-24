@@ -155,7 +155,7 @@ export default function OrderList({
         key={v.label}
         onClick={() => {
           status === "deleted"
-            ? restoreFromDeleted(selectedFlatRows, currentProduct, v).then(
+            ? restoreFromDeleted(selectedFlatRows, currentProduct, v.status).then(
                 (r) => {
                   const { updatedProduct } = r[0].data
                   setCurrentProduct(updatedProduct)

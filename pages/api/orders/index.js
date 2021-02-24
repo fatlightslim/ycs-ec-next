@@ -45,9 +45,9 @@ export default async (req, res) => {
     const { _id } = data
     delete data["_id"]
 
-    data.printed = data.printed === "true"
-    data.deleted = data.deleted === "true"
-    data.done = data.done === "true"
+    // data.printed = data.printed === "true"
+    // data.deleted = data.deleted === "true"
+    // data.done = data.done === "true"
 
     collection.findOneAndUpdate(
       { _id: ObjectId(_id) },
@@ -71,9 +71,9 @@ export default async (req, res) => {
 
   function post() {
     data._id = ObjectId()
-    data.deleted = false
-    data.done = false
-    data.printed = false
+    // data.deleted = false
+    // data.done = false
+    // data.printed = false
     data.createdAt = ObjectId(data._id).getTimestamp()
     data.updatedAt = data.createdAt
     collection.insertOne(data, (err, r) => {
@@ -113,7 +113,7 @@ export default async (req, res) => {
 
   function put(params) {
     const ids = data.map((v) => ObjectId(v._id))
-    console.log(data);
+    // console.log(data);
 
     return collection
       .updateMany({ _id: { $in: ids } }, { $set: {status} })

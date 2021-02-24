@@ -1,5 +1,13 @@
 import { connectToDatabase } from "../../util/mongodb";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+}
+
 export default async (req, res) => {
   const { db } = await connectToDatabase();
   if (req.method === "POST") {

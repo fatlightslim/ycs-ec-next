@@ -6,7 +6,7 @@ import encoding from "encoding-japanese"
 import SelectDept from "./SelectDept"
 
 export default function DropzoneInput(props) {
-  const {currentDept} = props
+  const { currentDept } = props
   const [result, setResult] = useState()
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -26,10 +26,10 @@ export default function DropzoneInput(props) {
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   const saveCustomers = () => {
-    console.log(result);
-    axios.post("/api/customers", result).then((response) => {
-      alert("更新が完了しました")
-    })
+    console.log(result)
+    // axios.post("/api/customers", result).then((response) => {
+    //   alert("更新が完了しました")
+    // })
   }
 
   return (
@@ -79,7 +79,6 @@ function Upload({ getRootProps, getInputProps }) {
   )
 }
 
-
 function Svg(params) {
   return (
     <svg
@@ -108,40 +107,45 @@ function str2Array(str) {
 }
 
 function itemsNeedToConvert(v) {
-  return {
-    address1: v[79],
-    address2: v[152],
-    name: v[151],
-    collector: v[133],
-  }
+  return region === "takatsu"
+    ? { address1: v[79], address2: v[152], name: v[151], collector: v[133] }
+    : { address1: v[52], address2: v[152], name: v[51], collector: v[133] }
 }
 
-function itemsNotJapanese(v) {
-  return {
-    tel: v[82],
-    area: v[13],
-    area2: v[14],
-    customerNumber: v[150],
-    route: v[147],
-  }
+function itemsNotJapanese(v, region) {
+  return region === "takatsu"
+    ? {
+        tel: v[82],
+        area: v[13],
+        area2: v[14],
+        customerNumber: v[150],
+        route: v[147],
+      }
+    : {
+        tel: v[82],
+        area: v[13],
+        area2: v[14],
+        customerNumber: v[50],
+        route: v[147],
+      }
 }
 
 function convertData(data, region) {
   const array = []
   data.forEach((v, i) => {
-    let item = itemsNeedToConvert(v)
+    let item = itemsNeedToConvert(v, region)
 
     Object.keys(item).forEach((v) => {
       if (item[v]) {
-        const a = encoding.detect(str2Array(item[v]))
-        console.log(a);
+        // const a = encoding.detect(str2Array(item[v]))
+        // console.log(item[v])
         var str = encoding.convert(str2Array(item[v]), {
-          from: "SJIS", to: 'UTF8'
+          from: "SJIS",
+          to: "UTF8",
         })
         item[v] = encoding.codeToString(str)
       }
     })
-    console.log(item);
 
     array.push({ ...item, ...itemsNotJapanese(v), region })
   })

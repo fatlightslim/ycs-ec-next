@@ -5,7 +5,7 @@ export default async (req, res) => {
   const { db } = await connectToDatabase()
   const collection = db.collection("orders")
   const {
-    query: { _id, status },
+    query: { _id },
   } = req
   const { data } = req.body
 
@@ -24,6 +24,7 @@ export default async (req, res) => {
   }
 
   function post(params) {
+    const {status} = data
     collection.findOneAndUpdate(
       { _id: ObjectId(_id) },
       { $set: { status, updatedAt: new Date() } },

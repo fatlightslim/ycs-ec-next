@@ -39,7 +39,6 @@ export default function OrderForm({
   useEffect(() => {
     axios.get("/api/customers").then((res) => {
       const data = res.data.filter((v) => v.region === currentDept.customers)
-      // console.log(data)
       setCustomers(data)
       setInitialData(data)
     })
