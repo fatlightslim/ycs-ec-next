@@ -26,10 +26,10 @@ export default function DropzoneInput(props) {
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   const saveCustomers = () => {
-    console.log(result)
-    // axios.post("/api/customers", result).then((response) => {
-    //   alert("更新が完了しました")
-    // })
+    // console.log(result)
+    axios.post("/api/customers", result).then((response) => {
+      alert("更新が完了しました")
+    })
   }
 
   return (
@@ -153,13 +153,13 @@ function convertData(data, region) {
           to: "UNICODE",
           // type: 'string'
         })
-        console.log(encoding.codeToString(str));
+        // console.log(encoding.codeToString(str));
         item[v] = encoding.codeToString(str)
       }
     })
 
     array.push({ ...item, ...itemsNotJapanese(v), region })
   })
-  console.log(array)
+  // console.log(array)
   return Promise.resolve(array)
 }
