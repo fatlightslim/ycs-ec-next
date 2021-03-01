@@ -104,30 +104,39 @@ function str2Array(str) {
     il = str.length
   for (i = 0; i < il; i++) array.push(str.charCodeAt(i))
   return array
+  // return new Uint8Array(str)
 }
 
-function itemsNeedToConvert(v) {
-  return region === "takatsu"
-    ? { address1: v[79], address2: v[152], name: v[151], collector: v[133] }
-    : { address1: v[52], address2: v[152], name: v[51], collector: v[133] }
+function itemsNeedToConvert(v, region) {
+  return { address1: v[79], address2: v[152], name: v[151], collector: v[133] }
+  // return region === "takatsu"
+  //   ? { address1: v[79], address2: v[152], name: v[151], collector: v[133] }
+  //   : { address1: v[52], address2: v[152], name: v[51], collector: v[133] }
 }
 
 function itemsNotJapanese(v, region) {
-  return region === "takatsu"
-    ? {
-        tel: v[82],
-        area: v[13],
-        area2: v[14],
-        customerNumber: v[150],
-        route: v[147],
-      }
-    : {
-        tel: v[82],
-        area: v[13],
-        area2: v[14],
-        customerNumber: v[50],
-        route: v[147],
-      }
+  return {
+    tel: v[82],
+    area: v[13],
+    area2: v[14],
+    customerNumber: v[150],
+    route: v[147],
+  }
+  // return region === "takatsu"
+  //   ? {
+  //       tel: v[82],
+  //       area: v[13],
+  //       area2: v[14],
+  //       customerNumber: v[150],
+  //       route: v[147],
+  //     }
+  //   : {
+  //       tel: v[82],
+  //       area: v[13],
+  //       area2: v[14],
+  //       customerNumber: v[50],
+  //       route: v[147],
+  //     }
 }
 
 function convertData(data, region) {
@@ -138,17 +147,19 @@ function convertData(data, region) {
     Object.keys(item).forEach((v) => {
       if (item[v]) {
         // const a = encoding.detect(str2Array(item[v]))
-        // console.log(item[v])
+        // console.log(a)
         var str = encoding.convert(str2Array(item[v]), {
           from: "SJIS",
-          to: "UTF8",
+          to: "UNICODE",
+          // type: 'string'
         })
+        console.log(encoding.codeToString(str));
         item[v] = encoding.codeToString(str)
       }
     })
 
     array.push({ ...item, ...itemsNotJapanese(v), region })
   })
-  //   console.log(array);
+  console.log(array)
   return Promise.resolve(array)
 }

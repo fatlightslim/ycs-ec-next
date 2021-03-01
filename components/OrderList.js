@@ -521,8 +521,8 @@ function Edit({ setForm, setEditOrder, v }) {
   )
 }
 
-function getDuplicateOrders(products) {
-  const current = products.map((v) => v.original.col4)
+function getDuplicateOrders(selectedFlatRows) {
+  const current = selectedFlatRows.map((v) => v.original.col4) //tel
   return new Promise((resolve) => {
     axios.get("/api/orders").then((res) => {
       const data = res.data.filter((v) => {
