@@ -90,9 +90,9 @@ class ComponentToPrint extends Component {
     // const array = checkedData.array.sort((a, b) => b.collector - a.collector)
     return (
       <ul className="grid grid-cols-2 gap-0">
-        {data.map((v, i) => (
-          <MergeReceipt key={i} {...this.props} v={v} />
-        ))}
+        {data.map((v, i) => { 
+          return <MergeReceipt key={v._id} {...this.props} v={v} />
+  })}
       </ul>
     )
   }

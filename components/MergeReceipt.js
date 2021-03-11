@@ -113,17 +113,17 @@ export default function MergeReceipt({
         </div>
       </div>
       <div className="grid grid-cols-1">
-        <div className="text-center py-2 px-4 text-xs">
+        <div className="text-center py-2 px-24 text-xs">
           但&nbsp;&nbsp;
-          {v.merged
-            ? [...new Set(v.merged.products)].map((x) => {
+          {v.mutiple
+            ? [...new Set(v.merged.products)].map((x, i) => {
                 return (
                   <span key={x} className="mr-1">
-                    {x}、
+                    {x} x {v.merged.qty[i]}、
                   </span>
                 )
               })
-            : currentProduct.name}
+            : `${currentProduct.name} x ${v.qty}`}
           <br />
           代として上記正に領収いたしました
           {v.point != 0 && <p>({v.point}ポイント適用済み)</p>}

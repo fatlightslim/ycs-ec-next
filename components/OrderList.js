@@ -25,7 +25,8 @@ export default function OrderList({
   setLoading,
   loading,
   products,
-  setProducts
+  setProducts,
+  setCheckedData
 }) {
   const [ordersByStatus, setOrdersByStatus] = useState([])
   const statusLabel = {}
@@ -79,12 +80,14 @@ export default function OrderList({
   )
 
   const archiveProduct = () => {
-    const status = {status: "done"}
-    axios.put("/api/products", {_id: currentProduct._id, status}).then(r => {
-      const copied = products.filter(v => v._id !== r.data.value._id)
-      setProducts([...copied])
-      setCurrentProduct(null)
-    })
+    const status = { status: "done" }
+    axios
+      .put("/api/products", { _id: currentProduct._id, status })
+      .then((r) => {
+        const copied = products.filter((v) => v._id !== r.data.value._id)
+        setProducts([...copied])
+        setCurrentProduct(null)
+      })
   }
 
   const {
@@ -155,16 +158,18 @@ export default function OrderList({
         key={v.label}
         onClick={() => {
           status === "deleted"
-            ? restoreFromDeleted(selectedFlatRows, currentProduct, v.status).then(
-                (r) => {
-                  const { updatedProduct } = r[0].data
-                  setCurrentProduct(updatedProduct)
-                  setUpdated(true)
-                  setTimeout(() => {
-                    setUpdated(false)
-                  }, 3000)
-                }
-              )
+            ? restoreFromDeleted(
+                selectedFlatRows,
+                currentProduct,
+                v.status
+              ).then((r) => {
+                const { updatedProduct } = r[0].data
+                setCurrentProduct(updatedProduct)
+                setUpdated(true)
+                setTimeout(() => {
+                  setUpdated(false)
+                }, 3000)
+              })
             : changeStatus(selectedFlatRows, v.status).then(() => {
                 setUpdated(true)
                 setTimeout(() => {
@@ -193,10 +198,13 @@ export default function OrderList({
                     setLoading(true)
                     return getDuplicateOrders(selectedFlatRows).then((data) => {
                       setPrintedData([...data])
+                      setCheckedData(selectedFlatRows)
+                      // setPrintableData(data)
+                      // setDuplicate(data)
                       setLoading(false)
-                      return data.length === selectedFlatRows.length
-                        ? setPrintableData(data)
-                        : setDuplicate(data)
+                        return data.length === selectedFlatRows.length
+                          ? setPrintableData(data)
+                          : setDuplicate(data)
                     })
                   }}
                   className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -263,7 +271,9 @@ export default function OrderList({
                 ) : rows.length === 0 ? (
                   <tr>
                     <td className="p-4">
-                      <h2 className="py-4">販売終了にしますか？販売終了商品は今後も管理画面から確認できます。</h2>
+                      <h2 className="py-4">
+                        販売終了にしますか？販売終了商品は今後も管理画面から確認できます。
+                      </h2>
                       <button
                         onClick={(e) => {
                           if (

@@ -1,55 +1,127 @@
 import { useMemo, useRef, forwardRef, useEffect, useState } from "react"
 import { useTable, useRowSelect } from "react-table"
 import axios from "axios"
+// import uniqBy from 'lodash/uniqBy'
+// import groupBy from 'lodash/groupBy'
+// import { first } from "lodash"
 
 export default function Duplicate({
   setDuplicate,
   setPrintableData,
   duplicate,
   currentProduct,
+  checkedData,
   printableData,
 }) {
-  async function fetchProductToGetReceiptData(originalData) {
+  async function fetchProductToGetReceiptData(originalData, key) {
     const data = [...duplicate]
     const others = data.filter((v) => v.product_id !== currentProduct._id)
 
     const promises = await Promise.all(
       originalData.map(async (org) => {
-        org.price = parseInt(currentProduct.price) * parseInt(org.qty)
+        org.price = parseInt(org.qty) * parseInt(org.product[0].price)
         org.merged = {
           memo: [org.memo],
-          products: [currentProduct.name],
+          products: [org.product[0].name],
           point: [org.point],
-          price: parseInt(currentProduct.price) * parseInt(org.qty),
+          price: org.price,
         }
-        const dataShouldMerge = others.filter((oth) => oth.tel === org.tel)
+        // console.log(key)
 
-        await dataShouldMerge.map(async (v) => {
-          const res = await axios.get(`/api/duplicate/${v.product_id}`)
-          let product = res.data
-          org.mutiple = true
-          org.price += parseInt(product.price) * parseInt(v.qty)
-          org.merged.price += parseInt(product.price) * parseInt(v.qty)
-          org.merged.memo.push(v.memo)
-          org.merged.products.push(product.name)
-          org.merged.point.push(v.point)
-          return org
-        })
+        if (key !== "original") {
+          const dataShouldMerge = others.filter((oth) => oth.tel === org.tel)
+
+          await dataShouldMerge.map(async (v) => {
+            // console.log(v);
+            // const res = await axios.get(`/api/duplicate/${v.product_id}`)
+            // console.log(res.data);
+            // let product = res.data
+            org.mutiple = true
+            org.price += parseInt(v.product[0].price) * parseInt(v.qty)
+            org.merged.price += parseInt(v.product[0].price) * parseInt(v.qty)
+            org.merged.memo.push(v.memo)
+            org.merged.products.push(v.product[0].name)
+            org.merged.point.push(v.point)
+            return org
+          })
+        }
+
+        // console.log(org)
         return org
       })
     )
     return promises
   }
 
-  async function preparePrintableData(key) {
-    const data = [...duplicate]
-    const originalData = data.filter((v) => v.product_id === currentProduct._id)
+  async function getOrderData(data) {
+    const orders = await Promise.all(
+      data.map(async (v) => {
+        const res = await axios.post(`/api/duplicate/${v.values.col13}`)
+        const r = await res.data
+        return { ...r }
+      })
+    )
+    return fetchProductToGetReceiptData(orders, "original")
+  }
 
+  async function getDuplicateData(items) {
+    const others = duplicate.filter((v) => v.product_id !== currentProduct._id)
+    const result = items.map((item) => {
+      item.merged = {
+        memo: [],
+        point: [],
+        products: [item.product[0].name],
+        qty: [item.qty],
+        price: item.qty * item.product[0].price,
+      }
+
+      const otherData = others.filter((v) => v.tel === item.tel)
+      otherData.forEach(async (v) => {
+        item.mutiple = true
+        item.merged.price += parseInt(v.product[0].price) * parseInt(v.qty)
+        if (v.memo) item.merged.memo.push(v.memo)
+        item.merged.products.push(v.product[0].name)
+        item.merged.point.push(v.point)
+        item.merged.qty.push(v.qty)
+      })
+      return item
+    })
+    // console.log(result);
+    return result
+  }
+
+  const groupBy = (array, getKey) => {
+    return Array.from(
+      array.reduce((map, cur, idx, src) => {
+        const key = getKey(cur, idx, src)
+        const list = map.get(key)
+        if (list) list.push(cur)
+        else map.set(key, [cur])
+        return map
+      }, new Map())
+    )
+  }
+
+  async function mergeData(data) {
+    const items = duplicate.filter((v) => v.product_id === currentProduct._id)
+    const grouped = groupBy(items, (item) => item.tel)
+    const mapped = grouped.map((item) => {
+      const sum = item[1].reduce((v, x) => v + x.qty, 0)
+      item[1][0].qty = sum
+      return item[1][0]
+    })
+    // console.log(mapped)
+    return getDuplicateData(mapped)
+  }
+
+  async function preparePrintableData(key) {
     const res =
       key === "original"
-        ? originalData
-        : await fetchProductToGetReceiptData(originalData)
+        ? await getOrderData(checkedData)
+        : // : await fetchProductToGetReceiptData(originalData, "duplicate")
+          await mergeData()
     setPrintableData(res)
+    // console.log(res)
     // setPrintedData(data)
     setTimeout(() => {
       setDuplicate([])

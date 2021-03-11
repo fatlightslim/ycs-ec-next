@@ -12,13 +12,13 @@ import ProductForm from "../components/ProductForm"
 import OrderForm from "../components/OrderForm"
 import { statusList } from "../util/status"
 
-import initializeBasicAuth from 'nextjs-basic-auth'
+import initializeBasicAuth from "nextjs-basic-auth"
 const users = [
   { user: process.env.USER, password: process.env.PASSWORD },
-    { user: 'ycs', password: '1q2w3e4r' },
+  { user: "ycs", password: "1q2w3e4r" },
 ]
 const basicAuthCheck = initializeBasicAuth({
-  users: users
+  users: users,
 })
 
 const formatter = new Intl.NumberFormat("ja", {
@@ -32,6 +32,7 @@ export default function Home({ depts }) {
   const [products, setProducts] = useState([])
   const [currentProduct, setCurrentProduct] = useState(null)
   const [orders, setOrders] = useState([])
+  const [checkedData, setCheckedData] = useState([])
   const [form, setForm] = useState(null)
 
   const [updated, setUpdated] = useState(null)
@@ -119,6 +120,8 @@ export default function Home({ depts }) {
     setOrders,
     loading,
     setLoading,
+    checkedData,
+    setCheckedData,
   }
   // console.log(props.currentProduct);
 
@@ -159,7 +162,7 @@ export default function Home({ depts }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const {req, res} = ctx
+  const { req, res } = ctx
 
   const url = "https://ycs-ec-next.vercel.app/api/depts"
   const r = await fetch(url)
@@ -173,13 +176,11 @@ export async function getServerSideProps(ctx) {
 
   await basicAuthCheck(req, res)
 
-
   return {
     props: {
       depts: JSON.parse(JSON.stringify(data)),
-    }
+    },
   }
-
 }
 
 // export async function getStaticProps() {
