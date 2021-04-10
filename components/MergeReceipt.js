@@ -113,13 +113,13 @@ export default function MergeReceipt({
         </div>
       </div>
       <div className="grid grid-cols-1">
-        <div className="text-center py-2 px-4 text-xs">
+        <div className="text-center py-2 px-24 text-xs">
           但&nbsp;&nbsp;
-          {v.merged
-            ? [...new Set(v.merged.products)].map((x) => {
+          {v.mutiple
+            ? [...new Set(v.merged.products)].map((x, i) => {
                 return (
                   <span key={x} className="mr-1">
-                    {x} x {v.qty}、
+                    {x} x {v.merged.qty[i]}、
                   </span>
                 )
               })
