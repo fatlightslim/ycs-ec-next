@@ -24,18 +24,18 @@ export default function Duplicate({
         }
         const dataShouldMerge = others.filter((oth) => oth.tel === org.tel)
 
-        await dataShouldMerge.map(async (v) => {
-          const res = await axios.get(`/api/duplicate/${v.product_id}`)
-          let product = res.data
-          org.mutiple = true
-          org.price += parseInt(product.price) * parseInt(v.qty)
-          org.merged.price += parseInt(product.price) * parseInt(v.qty)
-          org.merged.memo.push(v.memo)
-          org.merged.products.push(product.name)
-          org.merged.point.push(v.point)
-          return org
-        })
-        return org
+        // await dataShouldMerge.map(async (v) => {
+        //   const res = await axios.get(`/api/duplicate/${v.product_id}`)
+        //   let product = res.data
+        //   org.mutiple = true
+        //   org.price += parseInt(product.price) * parseInt(v.qty)
+        //   org.merged.price += parseInt(product.price) * parseInt(v.qty)
+        //   org.merged.memo.push(v.memo)
+        //   org.merged.products.push(product.name)
+        //   org.merged.point.push(v.point)
+        //   return org
+        // })
+        // return org
       })
     )
     return promises

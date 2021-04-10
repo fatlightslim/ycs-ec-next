@@ -119,11 +119,11 @@ export default function MergeReceipt({
             ? [...new Set(v.merged.products)].map((x) => {
                 return (
                   <span key={x} className="mr-1">
-                    {x}、
+                    {x} x {v.qty}、
                   </span>
                 )
               })
-            : currentProduct.name}
+            : `${currentProduct.name} x ${v.qty}`}
           <br />
           代として上記正に領収いたしました
           {v.point != 0 && <p>({v.point}ポイント適用済み)</p>}

@@ -8,6 +8,8 @@ import SelectDept from "./SelectDept"
 export default function DropzoneInput(props) {
   const { currentDept } = props
   const [result, setResult] = useState()
+  const [subRegion, setSubRegion] = useState("chuo")
+  // console.log(currentDept);
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -16,7 +18,7 @@ export default function DropzoneInput(props) {
       reader.onerror = () => console.log("file reading has failed")
       reader.onload = () => {
         csv.parse(reader.result, async (err, data) => {
-          const json = await convertData(data, currentDept.customers)
+          const json = await convertData(data, currentDept.customers, subRegion)
           setResult(json)
         })
       }
@@ -26,7 +28,7 @@ export default function DropzoneInput(props) {
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   const saveCustomers = () => {
-    // console.log(result)
+
     axios.post("/api/customers", result).then((response) => {
       alert("更新が完了しました")
     })
@@ -35,23 +37,44 @@ export default function DropzoneInput(props) {
   return (
     <div className="mx-auto p-8">
       <SelectDept className="mb-8" {...props} />
-      <Upload getRootProps={getRootProps} getInputProps={getInputProps} />
+      {currentDept.customers === "togane" && (
+        <SelectSub setSubRegion={setSubRegion} subRegion={subRegion} />
+      )}
+      <Upload
+        {...props}
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+      />
       <div className={result ? "block" : "hidden"}>
-        <Button saveCustomers={saveCustomers} />
+        <button
+          onClick={() => saveCustomers()}
+          type="button"
+          className="mt-4 text-xs btn-blue"
+        >
+          アップロード
+        </button>
       </div>
     </div>
   )
 }
 
-function Button({ saveCustomers }) {
+function SelectSub({ setSubRegion, subRegion }) {
   return (
-    <button
-      onClick={() => saveCustomers()}
-      type="button"
-      className="mt-4 text-xs btn-blue"
-    >
-      アップロード
-    </button>
+    <div className="max-w-lg pb-6">
+      <div>
+        {/* <label htmlFor="location" className="block text-sm font-medium text-gray-700">Sub</label> */}
+        <select
+          id="location"
+          name="location"
+          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          value={subRegion}
+          onChange={(e) => setSubRegion(e.target.value)}
+        >
+          <option value="chuo">中央</option>
+          <option value="tobu">東部</option>
+        </select>
+      </div>
+    </div>
   )
 }
 
@@ -90,7 +113,7 @@ function Svg(params) {
     >
       <path
         d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-        strokeWidth="{2}"
+        strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -139,7 +162,7 @@ function itemsNotJapanese(v, region) {
   //     }
 }
 
-function convertData(data, region) {
+function convertData(data, region, subRegion) {
   const array = []
   data.forEach((v, i) => {
     let item = itemsNeedToConvert(v, region)
@@ -158,6 +181,8 @@ function convertData(data, region) {
       }
     })
 
+    if (region === "togane")  item.subRegion = subRegion
+    // console.log(item);
     array.push({ ...item, ...itemsNotJapanese(v), region })
   })
   // console.log(array)
