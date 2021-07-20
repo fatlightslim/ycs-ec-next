@@ -96,7 +96,7 @@ Leaving: "ease-in duration-200"
           <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <button
               onClick={() => {
-                changeStatus(printedData, { status: "printed" }).then(() => {
+                changeStatus(printedData, "printed" ).then(() => {
                   setPrintableData([])
                   setPrintedData([])
                   setModalOpen(false)

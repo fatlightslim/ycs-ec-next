@@ -42,6 +42,7 @@ function List({ v, setCurrentProduct, formatter }) {
                     料金: {formatter.format(v.price)}
                   </span>
                   <span className="mx-1">在庫: {v.qty}</span>
+                  <span className="mx-1">販売数: {v.sales}</span>
                 </p>
               </div>
               <div className="hidden md:block">
