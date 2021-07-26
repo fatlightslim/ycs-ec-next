@@ -7,7 +7,7 @@ const menu = [
   // { key: "customers", label: "顧客データ" },
   { key: "products", label: "販売済商品" },
   // { key: "wip", label: "処理中" },
-  // { key: "csv", label: "CSVアップロード" },
+  { key: "csv", label: "CSVアップロード" },
   { key: "content", label: "ホームに戻る" },
 ]
 
