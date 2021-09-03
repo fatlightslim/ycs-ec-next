@@ -3,7 +3,7 @@ import { connectToDatabase } from "../../util/mongodb"
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb",
+      sizeLimit: "20mb",
     },
   },
 }
@@ -13,7 +13,6 @@ export default async (req, res) => {
   if (req.method === "POST") {
     // Get the documents collection
     const collection = db.collection("customers")
-    console.log(req.body[0]);
 
     if (req.body[0].subRegion) {
       collection

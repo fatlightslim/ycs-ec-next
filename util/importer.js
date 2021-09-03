@@ -132,7 +132,6 @@ fs.readFile(`${__dirname}/json/${collection}.json`, "utf-8", (err, data) => {
     db.collection(collection).drop()
     db.collection(collection).insertMany(result, (err, result) => {
       if (err) console.log(err)
-      console.log(result)
       client.close()
     })
   })

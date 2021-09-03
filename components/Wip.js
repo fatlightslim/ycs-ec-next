@@ -13,7 +13,6 @@ export default function Wip(props) {
       dept_id: v.product[0].dept_id,
     }
   })
-  console.log(result);
   return <BaseTable result={result} {...props} />
 }
 

@@ -1,37 +1,34 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Notification from "../components/Notification"
-// import Content from "../components/Content"
-// import Customers from "../components/Customers"
-// import Wip from "../components/Wip"
 import DropzoneInput from "../components/DropzoneInput"
 import SidebarDesktop from "../components/SidebarDesktop"
 import SidebarMobile from "../components/SidebarMobile"
 import DeptForm from "../components/DeptForm"
 import Aggregate from "../components/Aggregate"
 import Archived from "../components/Archived"
+import CsvUpload from "../components/CsvUpload"
 
-import initializeBasicAuth from 'nextjs-basic-auth'
+import initializeBasicAuth from "nextjs-basic-auth"
 const users = [
   { user: process.env.USER, password: process.env.PASSWORD },
-    { user: 'ycs', password: '1q2w3e4r' },
+  { user: "ycs", password: "1q2w3e4r" },
 ]
 const basicAuthCheck = initializeBasicAuth({
-  users: users
+  users: users,
 })
 
 const Map = {
   // content: Content,
   // customers: Customers,
   // wip: Wip,
-  csv: DropzoneInput,
+  // csv: DropzoneInput,
   depts: DeptForm,
   aggregate: Aggregate,
-  products: Archived
-  
+  products: Archived,
+  csv: CsvUpload,
 }
 
-export default function Setting({data}) {
+export default function Setting({ data }) {
   const [depts, setDepts] = useState(data)
   const [currentDept, setCurrentDept] = useState(data[0])
   const [updated, setUpdated] = useState(false)
@@ -90,10 +87,8 @@ export default function Setting({data}) {
 //   });
 // }
 
-
-
 export async function getServerSideProps(ctx) {
-  const {req, res} = ctx
+  const { req, res } = ctx
 
   const url = "https://ycs-ec-next.vercel.app/api/depts"
   const r = await fetch(url)
@@ -107,11 +102,9 @@ export async function getServerSideProps(ctx) {
 
   await basicAuthCheck(req, res)
 
-
   return {
     props: {
       data: JSON.parse(JSON.stringify(d)),
-    }
+    },
   }
-
 }

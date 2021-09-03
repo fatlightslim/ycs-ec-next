@@ -34,7 +34,6 @@ export default function Suggest(params) {
         suggestions={suggestions}
         onSuggestionsClearRequested={() => setSuggestions([])}
         onSuggestionsFetchRequested={({ value }) => {
-          console.log(value);
           setValue(value);
           setSuggestions(getSuggestions(value));
         }}
