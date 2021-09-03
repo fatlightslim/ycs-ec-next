@@ -199,7 +199,7 @@ function Modal({ open, setOpen, dept }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      {dept}のデータは最新の顧客情報に更新されました。
+                      最新の顧客データに更新されました。
                     </p>
                   </div>
                 </div>
