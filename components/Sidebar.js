@@ -2,8 +2,8 @@ import Link from "next/link"
 import { Home } from "./Svg"
 
 const menu = [
+  { key: "csv", label: "顧客データ更新" },
   { key: "depts", label: "部門編集" },
-  { key: "csv", label: "CSVアップロード" },
   { key: "aggregate", label: "集金人" },
   // { key: "customers", label: "顧客データ" },
   // { key: "products", label: "販売済商品" },
