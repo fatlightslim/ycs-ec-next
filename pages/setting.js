@@ -22,17 +22,17 @@ const Map = {
   // customers: Customers,
   // wip: Wip,
   // csv: DropzoneInput,
+  csv: CsvUpload,
   depts: DeptForm,
   aggregate: Aggregate,
   products: Archived,
-  csv: CsvUpload,
 }
 
 export default function Setting({ data }) {
   const [depts, setDepts] = useState(data)
   const [currentDept, setCurrentDept] = useState(data[0])
   const [updated, setUpdated] = useState(false)
-  const [current, setCurrent] = useState("depts")
+  const [current, setCurrent] = useState("csv")
   const [form, setForm] = useState({ method: "PATCH", url: "/api/depts" })
 
   // useEffect(() => {

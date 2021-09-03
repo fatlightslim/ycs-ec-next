@@ -65,13 +65,13 @@ export default function CsvUpload() {
         <div className="bg-white shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
-              CSVアップロード
+              顧客データ更新
             </h3>
             <div className="mt-2 max-w-xl text-sm text-gray-500">
               <p>
-                Once you delete your account, you will lose all data associated
-                with it.
+              ヘッダー情報なし、集金人入りのCSVファイルをアップロードしてください。
               </p>
+              <p>店舗はCSVデータから自動で判別します。</p>
             </div>
             <div className="mt-5">
               <label className="block -mb-3">CSVファイル</label>
