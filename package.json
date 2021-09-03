@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@tailwindcss/forms": "^0.2.1",
     "autoprefixer": "^10.0.4",
@@ -29,6 +31,7 @@
     "postcss": "^8.1.14",
     "react": "17.0.1",
     "react-autosuggest": "^10.0.4",
+    "react-csv-reader": "^3.3.1",
     "react-dom": "17.0.1",
     "react-dropzone": "^11.2.4",
     "react-hook-form": "^6.12.2",

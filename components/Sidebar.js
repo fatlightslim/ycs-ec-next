@@ -3,18 +3,18 @@ import { Home } from "./Svg"
 
 const menu = [
   { key: "depts", label: "部門編集" },
+  { key: "csv", label: "CSVアップロード" },
   { key: "aggregate", label: "集金人" },
   // { key: "customers", label: "顧客データ" },
-  { key: "products", label: "販売済商品" },
+  // { key: "products", label: "販売済商品" },
   // { key: "wip", label: "処理中" },
-  { key: "csv", label: "CSVアップロード" },
   { key: "content", label: "ホームに戻る" },
 ]
 
 export const Logo = (params) => {
   return (
     <div className="flex-shrink-0 px-4 flex items-center">
-      <Link href="/">YCS-EC</Link>
+      <a href="/">YCS-EC</a>
     </div>
   )
 }
@@ -31,12 +31,10 @@ export const Menu = ({ current, setCurrent }) => (
             : "border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50"
         className += ` ${base}`
         return i === menu.length - 1 ? (
-          <Link key={v.key} href="/">
-            <a className={className}>
+            <a key={v.key} href="/" className={className}>
               <Home className="mr-3 h-6 w-6 text-gray-400 group-hover:text-gray-500" />
               {v.label}
             </a>
-          </Link>
         ) : (
           <a
             key={v.key}

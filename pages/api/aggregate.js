@@ -39,7 +39,6 @@ export default async (req, res) => {
     //   },
     ])
     .toArray()
-    console.log(response);
 
   res.json(response)
 }

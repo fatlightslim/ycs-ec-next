@@ -36,3 +36,11 @@ a {
   );
   -webkit-background-size: 5px;
 }
+
+.csv-reader-input {
+  padding: 10px;
+  display: inline-block;
+  margin: 15px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

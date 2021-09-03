@@ -1,7 +1,7 @@
 import Cookies from "js-cookie"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X, Plus, Cog, Divider, Home } from "./Svg"
+import { Menu, Plus, Cog, Divider, Home } from "./Svg"
 
 export default function Layout({
   children,
@@ -38,12 +38,10 @@ export default function Layout({
   )
 
   const Setting = () => (
-    <Link href="/setting">
-      <a className="hidden  ml-auto sm:inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <a href="/setting" className="hidden  ml-auto sm:inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <Cog className="w-4 h-4 text-gray-400" />
         <span className="ml-1 text-sm text-gray-400">管理</span>
       </a>
-    </Link>
   )
 
   const AddProduct = () => {
