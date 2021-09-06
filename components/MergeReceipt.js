@@ -52,9 +52,9 @@ export default function MergeReceipt({
 
     if (v.area) {
       if (v.area2) {
-        // v.area += v.area2
+        v.area += v.area2
       }
-      // address += "[" + v.area + "]"
+      address += "[" + v.area + "]"
     }
 
     if (v.route) {
