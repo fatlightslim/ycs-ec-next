@@ -47,6 +47,7 @@ export default function CsvUpload() {
         yc: v[79].substr(0, 2),
       }
     })
+    console.log(result);
 
     setYc(shops[result[0].yc])
     const result2 = result.map((v) => {

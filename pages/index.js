@@ -1,4 +1,3 @@
-// import useSWR from "swr"
 import { useState, useEffect } from "react"
 import Notification from "../components/Notification"
 import Layout from "../components/Layout"
@@ -13,6 +12,7 @@ import OrderForm from "../components/OrderForm"
 import { statusList } from "../util/status"
 
 import initializeBasicAuth from "nextjs-basic-auth"
+
 const users = [
   { user: process.env.USER, password: process.env.PASSWORD },
   { user: "ycs", password: "1q2w3e4r" },
@@ -25,6 +25,7 @@ const formatter = new Intl.NumberFormat("ja", {
   style: "currency",
   currency: "JPY",
 })
+
 
 export default function Home({ depts }) {
   // console.log(depts);
@@ -42,6 +43,7 @@ export default function Home({ depts }) {
   const [duplicate, setDuplicate] = useState([])
   const [printedData, setPrintedData] = useState([])
   const [loading, setLoading] = useState(false)
+
 
   // const { data, error } = useSWR(`/api/products/${currentDept._id}`)
   // console.log(data);

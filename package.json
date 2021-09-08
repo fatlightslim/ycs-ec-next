@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "create-manifest": "node ./util/createManifest",
+    "dev": "yarn create-manifest && next",
+    "build": "yarn create-manifest && next build",
     "start": "next start"
   },
   "dependencies": {
@@ -17,7 +18,7 @@
     "csv": "^5.3.2",
     "date-fns": "^2.16.1",
     "deep-equal": "^2.0.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "downshift": "^6.0.7",
     "encoding-japanese": "^1.0.30",
     "fs": "0.0.1-security",

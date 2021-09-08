@@ -5,6 +5,7 @@ import Suggest from "./SuggestDownshift"
 import axios from "axios"
 // import { DevTool } from "@hookform/devtools"
 import { matchSorter } from "match-sorter"
+import * as data from "../manifest.json"
 
 export default function OrderForm({
   setForm,
@@ -37,11 +38,12 @@ export default function OrderForm({
   ]
 
   useEffect(() => {
-    axios.get("/api/customers").then((res) => {
-      const data = res.data.filter((v) => v.region === currentDept.customers)
-      setCustomers(data)
-      setInitialData(data)
-    })
+    // axios.get("/api/customers").then((res) => {
+      const r = data.default.filter((v) => v.region === currentDept.customers)
+      // console.log(currentDept.customers);
+      setCustomers(r)
+      setInitialData(r)
+    // })
   }, [])
 
   const {
