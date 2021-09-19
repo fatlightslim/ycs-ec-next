@@ -75,7 +75,16 @@ export default function OrderForm({
   const handleStateChange = (changes, downshiftState) => {
     if (changes.hasOwnProperty("inputValue")) {
       const filtered = getItems(changes.inputValue)
+      if (filtered.length === 0) {
+
+      setCustomers(initialData)
+      } else {
+
       setCustomers(filtered)
+      }
+    // } else {
+    //   // console.log(initialData);
+    //   setCustomers(initialData)
     }
     // handle stuff here if you need to
     // this is especially useful if you need
@@ -85,7 +94,6 @@ export default function OrderForm({
   const handleChange = (selectedItem, downshiftState) => {
     setCustomers(initialData)
     // handle the new selectedItem here
-    // console.log(selectedItem);
     selectedItem
       ? Object.keys(selectedItem).forEach((v) => {
           setValue(v, selectedItem[v])
