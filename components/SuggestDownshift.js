@@ -48,6 +48,7 @@ export default function SuggestDownshift({
                 name={en}
                 id={en}
                 className="max-w-lg inline-block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                // onBlur={e => console.log(e)}
               />
 
               {selectedItem ? (
