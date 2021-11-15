@@ -33,7 +33,6 @@ export default function BaseTable(props) {
                   <tr>
                     {result.length > 0 &&
                       Object.keys(result[0]).map((v) => {
-                        console.log(v)
                         return blacklist.includes(v) ? null : (
                           <th
                             key={v}
