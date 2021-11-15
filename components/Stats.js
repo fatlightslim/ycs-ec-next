@@ -1,16 +1,15 @@
 // import { Plus, Pencil } from "./Svg"
 import axios from "axios"
+import { sumBy } from "lodash";
 // import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 // import Notification from "./Notification"
 
 export default function Stats({
-  setCurrentProduct,
   currentProduct,
   formatter,
   setForm,
-  products,
-  setProducts,
+  orders
 }) {
   // const archiveProduct = () => {
   //   const status = { status: "done" }
@@ -22,6 +21,9 @@ export default function Stats({
   //       setCurrentProduct(null)
   //     })
   // }
+  const activeOrders = orders.filter(v => v.status !== 'deleted')
+  const sales = sumBy(activeOrders, (v) => v.qty)
+  
   return (
     <div className="bg-gray-50">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 lg:flex lg:items-center lg:justify-between">
@@ -74,7 +76,7 @@ export default function Stats({
                 売上
               </dt>
               <dd className="mt-1 text-3xl font-semibold text-gray-900">
-                {formatter.format(currentProduct.sales * currentProduct.price)}
+                {formatter.format(sales * currentProduct.price)}
               </dd>
             </div>
           </div>
@@ -94,7 +96,8 @@ export default function Stats({
                 販売数
               </dt>
               <dd className="mt-1 text-3xl font-semibold text-gray-900">
-                {parseInt(currentProduct.sales)}
+                {/* {parseInt(currentProduct.sales)} */}
+                {sales}
               </dd>
             </div>
           </div>
@@ -104,7 +107,7 @@ export default function Stats({
                 在庫数
               </dt>
               <dd className="mt-1 text-3xl font-semibold text-gray-900">
-                {currentProduct.qty < 0 ? 0 : currentProduct.qty}
+                {currentProduct.qty <= 0 ? 0 : parseInt(currentProduct.qty) - parseInt(sales)}
               </dd>
             </div>
           </div>

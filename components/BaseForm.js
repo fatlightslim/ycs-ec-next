@@ -26,8 +26,6 @@ export default function BaseForm({
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
-      console.log(currPos.x)
-  console.log(currPos.y)
       const isVisible = currPos.y < -40
       setHeaderStyle(isVisible)
     },

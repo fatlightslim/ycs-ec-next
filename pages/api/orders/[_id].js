@@ -1,5 +1,5 @@
 import { connectToDatabase } from "../../../util/mongodb"
-import { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb"
 
 export default async (req, res) => {
   const { db } = await connectToDatabase()
@@ -24,7 +24,7 @@ export default async (req, res) => {
   }
 
   function post(params) {
-    const {status} = data
+    const { status } = data
     collection.findOneAndUpdate(
       { _id: ObjectId(_id) },
       { $set: { status, updatedAt: new Date() } },
@@ -45,8 +45,8 @@ export default async (req, res) => {
         (err, doc) => {
           if (err) console.log(err)
 
-          doc.sales = doc.sales + qty
-          doc.qty = doc.qty - qty
+          // doc.sales = doc.sales + qty
+          // doc.qty = doc.qty - qty
 
           db.collection("products").findOneAndUpdate(
             { _id: ObjectId(data.product_id) },
