@@ -28,8 +28,6 @@ export default async (req, res) => {
       break
   }
 
-
-
   function put() {
     const { _id, status } = req.body
     // console.log(status);
@@ -85,6 +83,7 @@ export default async (req, res) => {
 
   async function get() {
     const response = await collection.find({}).toArray()
+
     res.json(response)
   }
 }

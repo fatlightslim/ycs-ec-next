@@ -1,3 +1,5 @@
+import { sumBy } from "lodash"
+
 export default function ProductList({
   products,
   setCurrentProduct,
@@ -20,6 +22,9 @@ export default function ProductList({
 }
 
 function List({ v, setCurrentProduct, formatter }) {
+  const activeOrders = v.orders.filter((v) => v.status !== "deleted")
+  const sales = sumBy(activeOrders, (v) => v.qty)
+  console.log(sales)
   return (
     <li>
       <a
@@ -36,13 +41,13 @@ function List({ v, setCurrentProduct, formatter }) {
                 </p>
                 <p className="mt-2 flex items-center text-sm text-gray-500">
                   <span className="mx-1">
-                    売上: {formatter.format(v.sales * v.price)}
+                    売上: {formatter.format(sales * v.price)}
                   </span>
                   <span className="mx-1">
                     料金: {formatter.format(v.price)}
                   </span>
-                  <span className="mx-1">在庫: {v.qty}</span>
-                  <span className="mx-1">販売数: {v.sales}</span>
+                  <span className="mx-1">在庫: {v.qty - sales <= 0 ? 0 : v.qty - sales}</span>
+                  <span className="mx-1">販売数: {sales}</span>
                 </p>
               </div>
               <div className="hidden md:block">
