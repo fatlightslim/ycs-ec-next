@@ -19,9 +19,12 @@ export default function Layout({
 }) {
   const [menuOpen, setMenuOpen] = useState(true)
 
+    // console.log(Cookies.get("lastSelectedDept"));
   useEffect(() => {
-    const dept = Cookies.get("lastSelectedDept")
-    setCurrentDept(dept ? JSON.parse(dept) : depts[0])
+    // const dept = Cookies.get("lastSelectedDept")
+    // const val =  dept == undefined ?  depts[0] : JSON.parse(dept) 
+
+    setCurrentDept(depts[0])
   }, [])
 
   const MobileMenu = () => (
