@@ -56,7 +56,7 @@ export default async (req, res) => {
       (err, r) => {
         // console.log(r);
         if (err) console.log(err)
-        const diffQty = data.qty - r.value.qty
+        const diffQty = parseInt(data.qty) - parseInt(r.value.qty)
         diffQty !== 0
           ? updateProduct(diffQty).then((updatedProduct) =>
               res.json({
