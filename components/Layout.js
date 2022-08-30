@@ -22,9 +22,9 @@ export default function Layout({
     // console.log(Cookies.get("lastSelectedDept"));
   useEffect(() => {
     const dept = Cookies.get("lastSelectedDept")
-    const val =  dept == undefined ?  depts[0] : JSON.parse(dept) 
+    // const val =  dept == undefined ?  depts[0] : JSON.parse(dept) 
 
-    // setCurrentDept(depts[0])
+    setCurrentDept(depts[0])
   }, [])
 
   const MobileMenu = () => (
