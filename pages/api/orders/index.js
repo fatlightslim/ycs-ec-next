@@ -125,7 +125,7 @@ export default async (req, res) => {
   function get() {
     return collection
       .aggregate([
-        { $match: { status: {$in: ["printed", "active"]}} },
+        { $match: { status: {$in: [ "active"]}} },
         {
           $addFields: {
             product_id: { $toObjectId: "$product_id" },
